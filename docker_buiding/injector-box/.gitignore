@@ -1,4 +1,3 @@
-target/
 docker-compose.yaml
 *.dll
 *.exe
