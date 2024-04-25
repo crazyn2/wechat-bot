@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+    wechat-box:
+        image: "registry.cn-beijing.aliyuncs.com/ersut/wechat-bot"
+        restart: unless-stopped
+        container_name: "wechat-box"
+        environment:
+            - WC_AUTO_RESTART=yes
+            - HOOK_PROC_NAME=WeChat
+            - INJ_CONDITION=test "`ps -aux | grep funtool | grep -v grep`" != "" && exit 0
+            - TARGET_CMD=wechat-start
+        ports:
+            - "8080:8080"
+            - "5555:5555"
+            - "5900:5900"
+#        volumes:
+#              - "/home/bread/.wechat/WeChat Files/:/home/app/WeChat Files/"
+#              - "/home/bread/.wechat/Applcation Data/:/home/app/.wine/drive_c/users/user/Application Data/"
+#              - "/home/bread/external:/home/app/external"
+        tty: true
+        extra_hosts:
+            - "dldir1.qq.com:127.0.0.1"

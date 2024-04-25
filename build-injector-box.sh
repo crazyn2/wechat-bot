@@ -1,32 +1,17 @@
 #!/usr/bin/env bash
-mkdir docker_buiding || true
-# update injector-box
-if [ ! -d docker_buiding/injector-box ]; then
-    git clone https://github.com/ChisBread/injector-box docker_buiding/injector-box
-else
-    cd docker_buiding/injector-box
-    git pull
-    cd -
-fi
-if [ ! -d docker_buiding/injector-box/target ]; then
-    git clone https://github.com/ChisBread/wechat-box docker_buiding/injector-box/target
-else
-    cd docker_buiding/injector-box/target
-    git pull
-    cd -
-fi
-if [ ! -f docker_buiding/injector-box/target/root/WeChatSetup-v3.6.0.18.exe ]; then
-    wget -P docker_buiding/injector-box/target/root https://github.com/ChisBread/wechat-box/releases/download/binary-resource/WeChatSetup-v3.6.0.18.exe
+
+if [ ! -f docker_buiding/injector-box/target/root/WeChatSetup-v3.9.2.23.exe ]; then
+    wget -O docker_buiding/injector-box/target/root/WeChatSetup-v3.9.2.23.exe https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.2.23/WeChatSetup-3.9.2.23.exe
 fi
 
-cp funtool/funtool_3.6.0.18-1.0.0015非注入版.exe docker_buiding/injector-box/root/bin/
+cp funtool/funtool_wx=3.9.2.23.exe docker_buiding/injector-box/root/bin/
 cp funtool/inject-dll docker_buiding/injector-box/root/bin/
 cp funtool/inject-monitor docker_buiding/injector-box/root/bin/
 
 cd docker_buiding/injector-box
 # docker rm -f wechat-bot
 # docker rmi -f chisbread/wechat-bot:1.0
-sudo docker build -t chisbread/wechat-bot:1.0 .
+sudo docker build -t ersut/wechat-bot:1.0 .
 # sudo docker run -itd --name wechat-bot  \
 #     -e HOOK_PROC_NAME=WeChat \
 #     -e TARGET_AUTO_RESTART="yes" \

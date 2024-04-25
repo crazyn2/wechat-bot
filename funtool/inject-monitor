@@ -3,6 +3,7 @@ INJMON_LOG_FILE=${INJMON_LOG_FILE:-/dev/stdout}
 function monitor() {
     while :
     do
+        sleep 10
         if [ "$INJ_CONDITION" != "" ]; then
             bash -c "$INJ_CONDITION"
             if [ "$?" = "0" ]; then
@@ -12,7 +13,6 @@ function monitor() {
             echo "funtool isn't running. starting..."
         fi
         inject-dll
-        sleep 10
     done
 }
 monitor
